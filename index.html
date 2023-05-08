@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="https://www.ddm.com.ar/wp-content/themes/ddm2019/img/ddm.ico">
+    <title>Bingo DDM</title>
+    <style>
+        body {
+            background-color: antiquewhite;
+        }
+
+        .container-bingo {
+            font-family: sans-serif;
+            display: flex;
+            text-align: center;
+            align-items: center;
+            flex-direction: column;
+            width: 100%;
+            font-size: 30px;
+            padding: 20px 0px;
+            gap: 15px;
+            height: 320px;
+            justify-content: space-between;
+        }
+
+        .grid-bingo {
+            display: grid;
+            background-color: rgb(236, 171, 29);
+            grid-template-columns: repeat(9, 1fr);
+            grid-template-rows: repeat(3, 1fr);
+            grid-auto-flow: column;
+            width: 400px;
+            gap: 2px;
+            padding: 5px;
+            border-radius: 5px;
+        }
+
+        .grid-numeros-randoms {
+            background-color: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(0, 0, 0, 0.8);
+            font-size: 25px;
+            text-align: center;
+        }
+
+        .button-bingo {
+            font-family: 'Arial Narrow', Arial, sans-serif;
+            width: 100px;
+            height: 40px;
+            border: 2px solid rgb(236, 171, 29);
+            border-radius: 5px;
+        }
+
+        .button-bingo:hover {
+            background-color: rgb(236, 171, 29);
+            transition: 1s;
+            cursor: pointer;
+        }
+    </style>
+    <script>
+        function handleContentGrid(limit) {
+            let arrayNumbersAleat = [90]
+            while (arrayNumbersAleat.length <= limit - 1) {
+                arrayNumbersAleat.push(Math.floor(Math.random() * 89))
+                arrayNumbersAleat = arrayNumbersAleat.filter(function (
+                    elemento,
+                    indice,
+                    arrayNumbersAleat
+                ) {
+                    return arrayNumbersAleat.indexOf(elemento) === indice;
+                });
+            }
+            arrayNumbersAleat = arrayNumbersAleat.sort((a, b) => a - b)
+            arrayNumbersAleat = arrayNumbersAleat.map(function (number) {
+                return `<div class='grid-numeros-randoms'>${number}</div>`
+            });
+
+            document.getElementById('grid-bingo').innerHTML = (arrayNumbersAleat.toString().replaceAll(',', ''))
+        }
+    </script>
+</head>
+
+<body>
+    <main>
+        <section class="container-bingo">
+            <img src="https://firebasestorage.googleapis.com/v0/b/noelyproject.appspot.com/o/ddm.png?alt=media&token=9a8ca1a2-690b-4182-9d67-05bd1de6dd50"
+                alt="icono-ddm">
+            <div class="grid-bingo" id="grid-bingo"></div>
+            <button onclick="handleContentGrid(27)" class="button-bingo">
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000"
+                    height="30px" width="30px" version="1.1" id="Capa_1" viewBox="0 0 489.533 489.533"
+                    xml:space="preserve">
+                    <g>
+                        <path
+                            d="M268.175,488.161c98.2-11,176.9-89.5,188.1-187.7c14.7-128.4-85.1-237.7-210.2-239.1v-57.6c0-3.2-4-4.9-6.7-2.9   l-118.6,87.1c-2,1.5-2,4.4,0,5.9l118.6,87.1c2.7,2,6.7,0.2,6.7-2.9v-57.5c87.9,1.4,158.3,76.2,152.3,165.6   c-5.1,76.9-67.8,139.3-144.7,144.2c-81.5,5.2-150.8-53-163.2-130c-2.3-14.3-14.8-24.7-29.2-24.7c-17.9,0-31.9,15.9-29.1,33.6   C49.575,418.961,150.875,501.261,268.175,488.161z" />
+                    </g>
+                </svg>
+            </button>
+        </section>
+    </main>
+</body>
+<script>handleContentGrid(27)</script>
+
+</html>
