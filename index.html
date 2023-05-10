@@ -64,42 +64,44 @@
         }
     </style>
     <script>
-        function generateNumberRamdons(min, max, limit,array = []) {
+        function generateNumberRamdons(min, max, limit, array = []) {
             let numberRamdon, sig;
-            while (array.length <= limit) {
+            while (array.length < limit) {
                 numberRamdon = Math.floor(Math.random() * (max - min + 1)) + min;
                 if (!array.includes(numberRamdon)) {
                     array.push(numberRamdon);
                 }
-
             }
             return array
         }
         function boxBlackProcess(arrayDivsNumbers) {
-            let aux = 1
             for (let i = 0; i < 3; i++) {
-                let arrayPositionBlack = this.generateNumberRamdons(9 * i, (9 * aux) - 1,3)
-                console.log(arrayPositionBlack)
-                for (let x = 0; x < 4; x++) {
-                    arrayDivsNumbers[arrayPositionBlack[x]] = arrayDivsNumbers[arrayPositionBlack[x]].replace('grid-numeros-randoms', 'grid-items-black')
+                let positionsRow = [i]
+                let aux = i
+                for (let p = 0; p < 8; p++) {
+                    positionsRow.push(aux+= 3)
                 }
-                aux++
+                positionsRow.sort(()=>Math.random()-0.5)
+                for (let x = 0; x < 4; x++) {
+                    arrayDivsNumbers[positionsRow[x]]
+                        = arrayDivsNumbers[positionsRow[x]]
+                            .replace('grid-numeros-randoms', 'grid-items-black')
+                }
             }
             return arrayDivsNumbers
         }
 
         function handleContentGrid(limit) {
             let arrayNumbersAleat = [90]
-            let key = 0
-            arrayNumbersAleat = generateNumberRamdons(1, 90, 26, arrayNumbersAleat)
+            arrayNumbersAleat = generateNumberRamdons(1, 89, 27, arrayNumbersAleat)
                 .sort((a, b) => a - b)
-                .map((number) => {
-                    return `<div id='${key++}'class='grid-numeros-randoms'>${number}</div>`
+                .map((number, index) => {
+                    return `<div id='${index}'class='grid-numeros-randoms'>${number}</div>`
                 });
 
-            document.getElementById('grid-bingo').innerHTML = (this.boxBlackProcess(arrayNumbersAleat).toString().replaceAll(',', ''))
+            document.getElementById('grid-bingo').innerHTML 
+                = (this.boxBlackProcess(arrayNumbersAleat).toString().replaceAll(',', ''))
         }
-
     </script>
 </head>
 
